@@ -4,9 +4,20 @@
     <title>PyChat</title>
 </head>
 <body>
-    <h1>{{message.objects.all}}</h1>
-    {% for i in message.objects.all %}
-        <h1>{{i}}</h1>
-    {% endfor %}
+    <div class="dms" style="float: right">
+        {% for dm in dms %}
+            <a href="{% url 'dm' dm.id %}"><h1>{{dm}}</h1></a>
+        {% endfor %}
+    </div>
+    <div class="messages" style="float:left;">
+        <h1>{{message.objects.all}}</h1>
+        {% for i in message %}
+            <h1>{{i.from_user}}: {{i.text}}</h1>
+        {% endfor %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+        </form>
+    </div>
 </body>
 </html>

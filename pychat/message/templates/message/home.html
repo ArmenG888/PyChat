@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PyChat</title>
+</head>
+<body>
+    {% for dm in dms %}
+        <a href="{% url 'dm' dm.id %}"><h1>{{dm}}</h1>
+    {% endfor %}
+</body>
+</html>

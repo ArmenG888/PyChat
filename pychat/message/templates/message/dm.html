@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PyChat</title>
+</head>
+<body>
+    <h1>{{message.objects.all}}</h1>
+    {% for i in message.objects.all %}
+        <h1>{{i}}</h1>
+    {% endfor %}
+</body>
+</html>

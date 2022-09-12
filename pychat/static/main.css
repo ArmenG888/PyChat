@@ -25,6 +25,17 @@
     border-radius: 25px;
     border-color: black;
 }
+.messages{
+    height:85vh;
+    margin-left:10%;
+    margin-right: 10%;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+.users{
+    border: 1px solid black;
+    border-radius: 5px;
+}
 @media only screen and (max-width: 750px)
 {
     *{

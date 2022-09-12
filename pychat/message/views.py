@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import dm, message
 from .forms import MessageForm
 def home(request):
@@ -16,11 +16,9 @@ def dm_detail(request,pk):
         form = MessageForm(request.POST)
         if form.is_valid():
             message.objects.create(chat=dm_x, from_user=request.user, text=form.cleaned_data['text'])     
+            return redirect('dm', pk)
     else:
         form = MessageForm()
-    dms = []
-    for i in dm.objects.all():
-        if request.user in i.list_of_people.all():
-            dms.append(i)
-    return render(request, 'message/dm.html', {'message':messages, 'form':form,'dms':dms})    
+    
+    return render(request, 'message/dm.html', {'message':messages, 'form':form,'dms':dm.objects.get(id=pk)})    
     

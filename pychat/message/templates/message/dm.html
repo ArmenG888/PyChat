@@ -1,0 +1,24 @@
+{% include "message/base.html" %}
+{% block content %}
+<div class="main">
+    <h1 style="margin-left:10%;margin-right: 10%;margin-top:2%;">{{dms.name}}</h1>
+    <div class="users" style="float:right;">
+        <h3>Members</h3>
+        {% for user in dms.list_of_people.all%}
+            <h4>{{user.username}}</h4>
+        {% endfor %}
+    </div>
+    <div class="messages">
+        <h1>{{message.objects.all}}</h1>
+        {% for i in message %}
+            <h3>{{i.from_user}}: {{i.text}}</h3>
+        {% endfor %}
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <textarea class="form-control" id="text" name="text" rows="2" placeholder="Message input"></textarea>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content%}

@@ -1,0 +1,74 @@
+.login{
+    margin-top: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.register{
+    margin-top: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.emailmargin{
+    margin-top:3%
+}
+.newlogininputdiv{
+    width: 50vw;
+}
+.registerbutton{
+    width: 60vw;
+}
+.newlogininput{
+    border-radius: 25px;
+    border-color: black;
+}
+.messages{
+    height:85vh;
+    margin-left:10%;
+    margin-right: 10%;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+.users{
+    border: 1px solid black;
+    border-radius: 5px;
+}
+@media only screen and (max-width: 750px)
+{
+    *{
+        font-size: 16px;
+    }
+    .login{
+        margin-top: 15%;
+        margin-bottom: 1%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .register{
+        margin-top: 10%;
+        margin-bottom: 1%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .newlogininputdiv{
+        height:100%;
+        width:40vh;
+    }
+    .registerbutton{
+        width:100%;
+    }
+    .emailmargin{
+        margin-top:10%
+    }
+    .newlogininput{
+        border-radius: 25px;
+        border-color: black;
+    }
+}

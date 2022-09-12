@@ -1,0 +1,6 @@
+{% include "message/base.html" %}
+{% block content %}
+    {% for dm in dms %}
+        <a href="{% url 'dm' dm.id %}"><h1>{{dm}}</h1>
+    {% endfor %}
+{% endblock content %}

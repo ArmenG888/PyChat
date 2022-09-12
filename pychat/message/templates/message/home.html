@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>PyChat</title>
-</head>
-<body>
+{% include "message/base.html" %}
+{% block content %}
     {% for dm in dms %}
         <a href="{% url 'dm' dm.id %}"><h1>{{dm}}</h1>
     {% endfor %}
-</body>
-</html>
+{% endblock content %}

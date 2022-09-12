@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>PyChat</title>
-</head>
-<body>
+{% include "message/base.html" %}
+{% block content %}
     <div class="dms" style="float: right">
         {% for dm in dms %}
             <a href="{% url 'dm' dm.id %}"><h1>{{dm}}</h1></a>
@@ -19,5 +15,4 @@
             {{ form }}
         </form>
     </div>
-</body>
-</html>
+{% endblock content%}

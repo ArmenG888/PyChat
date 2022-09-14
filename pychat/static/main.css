@@ -1,3 +1,7 @@
+* {
+    color:white;
+    background-color: #0D1117!important;
+}
 .login{
     margin-top: 10%;
     display: flex;
@@ -23,18 +27,26 @@
 }
 .newlogininput{
     border-radius: 25px;
-    border-color: black;
+    border-color: white;
 }
 .messages{
+    border: solid white 1px;
+    border-radius: 15px;
     height:85vh;
     margin-left:10%;
     margin-right: 10%;
-    border: 1px solid black;
-    border-radius: 5px;
 }
 .users{
-    border: 1px solid black;
-    border-radius: 5px;
+    border: solid white 1px;
+    border-radius: 20px;
+    width: 9%;
+    height:85vh;
+    background-color: #0c0f14!important;
+}
+
+.input{
+    margin-left:10%;
+    margin-right: 10%;
 }
 @media only screen and (max-width: 750px)
 {

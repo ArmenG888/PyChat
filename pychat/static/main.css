@@ -29,9 +29,36 @@
     border-radius: 25px;
     border-color: white;
 }
+.dms{
+    border: solid white 1px;
+    border-radius: 20px;
+    width:9%; 
+    height:85vh;
+}
+.dmtext{
+    width: 100%;
+    background-color: #0D1117!important;
+}
+.dmtext:hover {
+    background-color: #19202c!important;
+}
+.dmtext-selected{
+    background-color: #19202c!important;
+}
+.dmtext-selected:hover{
+    background-color: #1f2735!important;
+}
+
+.usertext{
+    width: 100%;
+    background-color: #0c0f14!important;;
+}
+.usertext:hover {
+    background-color: #1b2027!important;
+}
 .messages{
     border: solid white 1px;
-    border-radius: 15px;
+    border-radius: 20px;
     height:85vh;
     margin-left:10%;
     margin-right: 10%;

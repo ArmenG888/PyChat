@@ -5,10 +5,21 @@
     <div class="users" style="float:right;">
         <h4 style="font-size:14px;background-color: #0c0f14!important; margin-top:10%;">Members: {{dms.list_of_people.count}}</h4>
         {% for user in dms.list_of_people.all%}
-            <h4 style="background-color: #0c0f14!important;">{{user.username}}</h4>
+            <h4 class="usertext">{{user.username}}</h4>
         {% endfor %}
     </div>
-
+    <div class="dms" style="float:left;">
+        <div style="margin-top:10%;"> 
+            {% for i in dm %}
+                {% if dms.id == i.id %}
+                    <a href="{% url 'dm' i.id %}" style="text-decoration:none;"><h3 class="dmtext-selected">{{i.name}}</h3></a>
+                {% else %}
+                    <a href="{% url 'dm' i.id %}" style="text-decoration:none;"><h3 class="dmtext">{{i.name}}</h3></a>
+                {% endif %}
+                
+            {% endfor %}    
+        </div>
+    </div>
     <div class="messages">
         <div class="message" style="margin-top:1%; margin-left:1%;">
             <h1>{{message.objects.all}}</h1>
@@ -17,6 +28,7 @@
             {% endfor %}    
         </div>
     </div>
+    
     <div class="input">
         <form method="post">
             {% csrf_token %}

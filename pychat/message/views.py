@@ -20,5 +20,5 @@ def dm_detail(request,pk):
     else:
         form = MessageForm()
     
-    return render(request, 'message/dm.html', {'message':messages, 'form':form,'dms':dm.objects.get(id=pk)})    
+    return render(request, 'message/dm.html', {'message':messages, 'form':form,'dms':dm.objects.get(id=pk), 'dm':dm.objects.all()})    
     

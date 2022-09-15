@@ -1,3 +1,5 @@
+
+  
 * {
     color:white;
     background-color: #0D1117!important;
@@ -62,6 +64,9 @@
     height:85vh;
     margin-left:10%;
     margin-right: 10%;
+    overflow-y: scroll;
+    scrollbar-color: rebeccapurple green;
+    scrollbar-width: thin;
 }
 .users{
     border: solid white 1px;

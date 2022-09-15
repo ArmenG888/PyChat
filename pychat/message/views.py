@@ -1,12 +1,16 @@
 from django.shortcuts import render, redirect
 from .models import dm, message
 from .forms import MessageForm
-def home(request):
+def dms(user):
     dms = []
     for i in dm.objects.all():
-        if request.user in i.list_of_people.all():
+        if user in i.list_of_people.all():
             dms.append(i)
-    return render(request, 'message/home.html', {'dms':dms})    
+    return dms
+def home(request):
+
+    return render(request, 'message/home.html', {'dms':dms(request.user)})    
+
 
 def dm_detail(request,pk):
     
@@ -20,5 +24,5 @@ def dm_detail(request,pk):
     else:
         form = MessageForm()
     
-    return render(request, 'message/dm.html', {'message':messages, 'form':form,'dms':dm.objects.get(id=pk), 'dm':dm.objects.all()})    
+    return render(request, 'message/dm.html', {'message':messages, 'form':form,'dms':dm.objects.get(id=pk), 'dm':dms(request.user)})    
     

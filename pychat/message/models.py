@@ -12,4 +12,5 @@ class message(models.Model):
     text = models.TextField(default="")
     from_user = models.ForeignKey(User, on_delete=models.CASCADE)
     chat = models.ForeignKey(dm, on_delete=models.CASCADE)
+    
 

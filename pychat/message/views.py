@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse, HttpResponse
+from django.core import serializers
 from .models import dm, message
 from .forms import MessageForm
 def dms(user):
@@ -11,6 +13,11 @@ def home(request):
 
     return render(request, 'message/home.html', {'dms':dms(request.user)})    
 
+def ajax(request, pk):
+    dm_x = dm.objects.get(id=pk)
+    messages = message.objects.all().filter(chat=dm_x)
+    data = serializers.serialize('json', messages)
+    return HttpResponse(data, content_type="application/json")
 
 def dm_detail(request,pk):
     

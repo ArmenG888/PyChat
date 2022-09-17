@@ -16,13 +16,18 @@ def home(request):
 def ajax(request, pk):
     dm_x = dm.objects.get(id=pk)
     messages = message.objects.all().filter(chat=dm_x)
-    data = serializers.serialize('json', messages)
-    return HttpResponse(data, content_type="application/json")
+    messages_x = ""
+    for i in messages:
+        messages_x += i.from_user.username + ": " + i.text + "\n"
+    return JsonResponse({"response":messages_x})
 
 def dm_detail(request,pk):
     
     dm_x = dm.objects.get(id=pk)
     messages = message.objects.all().filter(chat=dm_x)
+    messages_x = ""
+    for i in messages:
+        messages_x += i.from_user.username + ": " + i.text + "\n"
     if request.method == 'POST':
         form = MessageForm(request.POST)
         if form.is_valid():
@@ -31,5 +36,5 @@ def dm_detail(request,pk):
     else:
         form = MessageForm()
     
-    return render(request, 'message/dm.html', {'message':messages, 'form':form,'dms':dm.objects.get(id=pk), 'dm':dms(request.user)})    
+    return render(request, 'message/dm.html', {'message':messages_x, 'form':form,'dms':dm.objects.get(id=pk), 'dm':dms(request.user)})    
     

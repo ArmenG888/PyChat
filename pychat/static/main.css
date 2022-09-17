@@ -59,14 +59,9 @@
     background-color: #1b2027!important;
 }
 .messages{
-    border: solid white 1px;
-    border-radius: 20px;
     height:85vh;
     margin-left:10%;
     margin-right: 10%;
-    overflow-y: scroll;
-    scrollbar-color: rebeccapurple green;
-    scrollbar-width: thin;
 }
 .users{
     border: solid white 1px;

@@ -1,17 +1,33 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse, HttpResponse
+from django.core import serializers
 from .models import dm, message
 from .forms import MessageForm
-def home(request):
+def dms(user):
     dms = []
     for i in dm.objects.all():
-        if request.user in i.list_of_people.all():
+        if user in i.list_of_people.all():
             dms.append(i)
-    return render(request, 'message/home.html', {'dms':dms})    
+    return dms
+def home(request):
+
+    return render(request, 'message/home.html', {'dms':dms(request.user)})    
+
+def ajax(request, pk):
+    dm_x = dm.objects.get(id=pk)
+    messages = message.objects.all().filter(chat=dm_x)
+    messages_x = ""
+    for i in messages:
+        messages_x += i.from_user.username + ": " + i.text + "\n"
+    return JsonResponse({"response":messages_x})
 
 def dm_detail(request,pk):
     
     dm_x = dm.objects.get(id=pk)
     messages = message.objects.all().filter(chat=dm_x)
+    messages_x = ""
+    for i in messages:
+        messages_x += i.from_user.username + ": " + i.text + "\n"
     if request.method == 'POST':
         form = MessageForm(request.POST)
         if form.is_valid():
@@ -20,5 +36,5 @@ def dm_detail(request,pk):
     else:
         form = MessageForm()
     
-    return render(request, 'message/dm.html', {'message':messages, 'form':form,'dms':dm.objects.get(id=pk)})    
+    return render(request, 'message/dm.html', {'message':messages_x, 'form':form,'dms':dm.objects.get(id=pk), 'dm':dms(request.user)})    
     

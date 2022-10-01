@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet'>
     <link rel="stylesheet" href="/static/main.css">
-    <link rel="stylesheet" href="/static/mainlight.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     
     <title>PyChat Login</title>
@@ -18,7 +17,7 @@
                 </div>
       {% endif %}
     <div class="login">
-        <h1 style="margin-left:25%;margin-right:25%;font-weight: bold;">PyInsta</h1>
+        <h1 style="margin-left:25%;margin-right:25%;font-weight: bold;">PyChat</h1>
         {% if messages %}
           {% for message in messages %}
             <div class="alert alert-{{ message.tags }}">
@@ -30,11 +29,11 @@
             {% csrf_token %}
             <div class="mb-3 newlogininputdiv emailmargin">
               <label for="username" class="form-label">Username</label>
-              <input type="username" class="form-control rounded" id="username" name="username" aria-describedby="emailHelp" placeholder="name@example.com">             
+              <input style="color:white;" type="username" class="form-control rounded" id="username" name="username" aria-describedby="emailHelp" placeholder="name@example.com">             
             </div>
             <div class="mb-3 newlogininputdiv">
               <label for="password" class="form-label">Password</label>
-              <input type="password" class="form-control rounded " id="password" name="password" placeholder="min 8 characters">
+              <input style="color:white;" type="password" class="form-control rounded " id="password" name="password" placeholder="min 8 characters">
             </div>
             <div class="mb-3 form-check newlogininputdiv"> 
               <input type="checkbox" class="form-check-input rounded" id="exampleCheck1">

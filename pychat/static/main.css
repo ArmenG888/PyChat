@@ -1,9 +1,11 @@
 
-  
+
 * {
+    
     color:white;
     background-color: #0D1117!important;
 }
+
 .login{
     margin-top: 10%;
     display: flex;
@@ -33,7 +35,6 @@
 }
 .dms{
     border: solid white 1px;
-    border-radius: 20px;
     width:9%; 
     height:85vh;
 }
@@ -65,7 +66,7 @@
 }
 .users{
     border: solid white 1px;
-    border-radius: 20px;
+    border-radius: 2px;
     width: 9%;
     height:85vh;
     background-color: #0c0f14!important;

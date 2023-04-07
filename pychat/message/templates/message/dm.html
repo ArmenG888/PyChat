@@ -5,7 +5,7 @@
     <div class="users" style="float:right;">
         <h4 style="font-size:14px;background-color: #0c0f14!important; margin-top:10%;">Members: {{dms.list_of_people.count}}</h4>
         {% for user in dms.list_of_people.all%}
-            <h4 class="usertext">{{user.username}}</h4>
+            <h4 class="usertext">{{user.profile.online}} {{user.username}}</h4>
         {% endfor %}
     </div>
     <div class="dms" style="float:left;">

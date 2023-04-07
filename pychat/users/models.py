@@ -8,7 +8,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     last_online = models.DateTimeField(default=timezone.now)
     def online(self):
-        widthin_last_seconds = timezone.now() - datetime.timedelta(minutes=5)
+        widthin_last_seconds = timezone.now() - datetime.timedelta(seconds = 2)
         if self.last_online > widthin_last_seconds:
             return "🟢"
         else:

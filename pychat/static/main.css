@@ -1,20 +1,13 @@
 
 
-* {
-    
+* {   
     color:white;
-    background-color: #0D1117!important;
+    background-color: #2B2D31;
+    font-family:"gg sans", "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .login{
     margin-top: 10%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-.register{
-    margin-top: 5%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -32,49 +25,6 @@
 .newlogininput{
     border-radius: 25px;
     border-color: white;
-}
-.dms{
-    border: solid white 1px;
-    width:9%; 
-    height:85vh;
-}
-.dmtext{
-    width: 100%;
-    background-color: #0D1117!important;
-}
-.dmtext:hover {
-    background-color: #19202c!important;
-}
-.dmtext-selected{
-    background-color: #19202c!important;
-}
-.dmtext-selected:hover{
-    background-color: #1f2735!important;
-}
-
-.usertext{
-    width: 100%;
-    background-color: #0c0f14!important;;
-}
-.usertext:hover {
-    background-color: #1b2027!important;
-}
-.messages{
-    height:85vh;
-    margin-left:10%;
-    margin-right: 10%;
-}
-.users{
-    border: solid white 1px;
-    border-radius: 2px;
-    width: 9%;
-    height:85vh;
-    background-color: #0c0f14!important;
-}
-
-.input{
-    margin-left:10%;
-    margin-right: 10%;
 }
 @media only screen and (max-width: 750px)
 {

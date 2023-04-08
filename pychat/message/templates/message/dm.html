@@ -10,14 +10,14 @@
         {% endfor %}    
     </div>
 </div>
-<div style="display:flex; flex-direction:column;float:left;width:75vw;height:100vh;background-color:#313338; ">
-    <textarea style="background-color:#313338; outline:none; resize:none; border:none; color:white;" id="messages">{{message}}</textarea>
+<div style="display:flex; flex-direction:column;float:left;width:75vw;height:100vh;background-color:#313338;">
+    <textarea style="background-color:#313338; outline:none; resize:none; border:none; color:white; height:95%;margin-left:1%;" readonly spellcheck="false" id="messages">{{message}}</textarea>
     <form method="post" style="display:flex; flex-direction:row; align-items:center;">
         {% csrf_token %}
         <div class="mb-3">
-            <textarea class="form-control" id="text" name="text" rows="2" placeholder="Message {{dms.name}}" style="outline:none; resize:none; border:none;background-color:#383A40;border-radius: 2px; margin-top:0.5%;color:white; width:75vw;margin-right:2px;"></textarea>
+            <input type="text" class="form-control" id="text" name="text" rows="2" placeholder="Message {{dms.name}}" style="outline:none; resize:none; border:none;background-color:#383A40;border-radius: 2px; position: absolute;bottom:0;color:white; width:75vw;margin-right:2px;padding:10px;margin-bottom:1%;">
         </div>
-        <button type="submit" class="btn btn-primary" style="margin-left:2px;">Submit</button>   
+        <input type="submit" hidden />
     </form>
 </div>
 <div style="float:left;width:10.6vw;height:100vh; background-color:#2B2D31;display:flex; flex-direction:column;">
@@ -28,6 +28,27 @@
         {% endfor %}
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+    setInterval(function(){
+        $.ajax({
+            type:'GET',
+            url : "/ajax/{{dms.id}}",
+            success: function(response){
+                document.getElementById("messages").value = response.response; 
+                var $textarea = $('#messages');
+                for (const [key, value] of Object.entries(response.online)) { 
+                    $("#"+key).html(value + key);
+                }
+
+            },
+            error: function(response)
+            {
+                console.log("b");
+            }
+        });
+    },100);
+});</script>
 {% comment %} {% block content %}
 <div class="main">
     <h1 style="margin-left:10%;margin-right: 10%;margin-top:0.1%;">{{dms.name}}</h1>
@@ -54,26 +75,7 @@
             <textarea style="" id="messages">{{message}}</textarea>      
         </div>
     </div>
-    <script>
-        $(document).ready(function(){
-        setInterval(function(){
-            $.ajax({
-                type:'GET',
-                url : "/ajax/{{dms.id}}",
-                success: function(response){
-                    document.getElementById("messages").value = response.response; 
-                    var $textarea = $('#messages');
-                    for (const [key, value] of Object.entries(response.online)) { 
-                        $("#"+key).html(value + key);
-                    }
-                },
-                error: function(response)
-                {
-                    console.log("b");
-                }
-            });
-        },100);
-    });</script>
+    
     
     <div class="input" >
         <form method="post" style="display:flex; flex-direction:row; align-items:center;">

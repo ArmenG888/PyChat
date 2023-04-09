@@ -10,8 +10,14 @@
         {% endfor %}    
     </div>
 </div>
-<div style="display:flex; flex-direction:column;float:left;width:75vw;height:100vh;background-color:#313338;">
-    <textarea style="background-color:#313338; outline:none; resize:none; border:none; color:white; height:95%;margin-left:1%;" readonly spellcheck="false" id="messages">{{message}}</textarea>
+<div style="display:flex; flex-direction:column;float:left;width:75vw;height:96.8vh;background-color:#313338;overflow:scroll;">
+    {% comment %} <textarea style="background-color:#313338; outline:none; resize:none; border:none; color:white; height:95%;margin-left:1%;" readonly spellcheck="false" id="messages">{{message}}</textarea> {% endcomment %} 
+        {% for message in messages %}
+            <div style="">
+                <span style="background-color:#313338;font-size:16px;#f2f3f5">{{message.from_user}}  <span style="background-color:#313338;font-size:12px;color:#949ba4;">{{message.time|date:'d/m/Y' }} at {{message.time|date:'g:i A'}}</span> </span>
+                <span style="background-color:#313338;font-size:16px;#dbdee1">{{message.text}}</span>
+            </div>
+        {% endfor %}
     <form method="post" style="display:flex; flex-direction:row; align-items:center;">
         {% csrf_token %}
         <div class="mb-3">
@@ -28,6 +34,10 @@
         {% endfor %}
     </div>
 </div>
+{% comment %} <script>
+    var messageBody = document.querySelector('#messages');
+    messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
+</script> {% endcomment %}
 <script>
     $(document).ready(function(){
     setInterval(function(){

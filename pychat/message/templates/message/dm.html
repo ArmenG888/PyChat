@@ -1,11 +1,92 @@
 {% include "message/base.html" %}
-{% block content %}
+
+<div style="float:left;width:3.5vw;height:100vh; background-color:#1E1F22!important">
+</div>
+<div style="float:left;width:10vw;height:100vh; background-color:#2B2D31!important; display:flex; flex-direction:column;">
+    <div style="margin-left:10%;display:flex; flex-direction:column;">
+        <span style="font-size:12px; background-color:#2B2D31; font-weight:600; color:#949BA4;">Direct Messages</span>
+        {% for i in dm %}
+            <a href="{% url 'dm' i.id %}" style="font-size:16px; background-color:#2B2D31; font-weight:500; color:#949BA4; text-decoration:none;">{{i.name}}</a>
+        {% endfor %}    
+    </div>
+</div>
+<div style="display:flex; flex-direction:column;float:left;width:75vw;height:96.8vh;background-color:#313338!important;overflow:scroll;" id="messages">
+    {% comment %} <textarea style="background-color:#313338; outline:none; resize:none; border:none; color:white; height:95%;margin-left:1%;" readonly spellcheck="false" id="messages">{{message}}</textarea> {% endcomment %} 
+        {% for message in messages %}
+            <div style="" id="{{message.id}}">
+                <span class="from_user">{{message.from_user}}  <span class="date">{{message.time|date:'d/m/Y' }} at {{message.time|date:'g:i A'}}</span> </span>
+                <span class="message">{{message.text}}</span>
+            </div>
+        {% endfor %}
+    <form method="post" style="display:flex; flex-direction:row; align-items:center;">
+        {% csrf_token %}
+        <div class="mb-3">
+            <input type="text" class="form-control" id="text" name="text" rows="2" placeholder="Message {{dms.name}}" style="outline:none; resize:none; border:none;background-color:#383A40;border-radius: 2px; position: absolute;bottom:0;color:white; width:75vw;margin-right:2px;padding:10px;margin-bottom:1%;">
+        </div>
+        <input type="submit" hidden />
+    </form>
+</div>
+<div style="float:left;width:10.6vw;height:100vh; background-color:#2B2D31;display:flex; flex-direction:column;">
+    <div style="margin-left:10%;margin-top:10%;display:flex; flex-direction:column;">
+        <span style="font-size:12px; background-color:#2B2D31; font-weight:600; color:#949BA4;">Members--{{dms.list_of_people.count}}</span>
+        {% for user in dms.list_of_people.all%}
+            <span style="font-size:16px; background-color:#2B2D31; font-weight:600;" id="{{user.username}}">{{user.profile.online}} {{user.username}}</span>
+        {% endfor %}
+    </div>
+</div>
+{% comment %} <script>
+    var messageBody = document.querySelector('#messages');
+    messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
+</script> {% endcomment %}
+<script>
+    $(document).ready(function(){
+    setInterval(function(){
+        $.ajax({
+            type:'GET',
+            url : "/ajax/{{dms.id}}",
+            success: function(response){
+
+                
+                //var $textarea = $('#messages');
+                for (const [key,value] of Object.entries(response.messages)){
+                    var element =  document.getElementById(key);
+                    if (element == null){
+                        g = document.createElement('div');
+                        g.setAttribute("id", key);
+                        document.getElementById("messages").appendChild(g);
+                        var dateSpan = document.createElement('span')
+                        g.appendChild(dateSpan);
+                        dateSpan.innerHTML = value[0];
+                        var dateSpan1 = document.createElement('span')
+                        g.appendChild(dateSpan1);
+                        dateSpan1.innerHTML =  " " + value[2];
+                        var dateSpan2 = document.createElement('span')
+                        g.appendChild(dateSpan2);
+                        dateSpan2.innerHTML = " " + value[1];
+                        dateSpan.classList.add("from_user");
+                        dateSpan1.classList.add("date");
+                        dateSpan2.classList.add("message");
+                    }
+                }
+                for (const [key, value] of Object.entries(response.online)) { 
+                    $("#"+key).html(value + key);
+                }
+
+            },
+            error: function(response)
+            {
+                console.log("b");
+            }
+        });
+    },100);
+});</script>
+{% comment %} {% block content %}
 <div class="main">
     <h1 style="margin-left:10%;margin-right: 10%;margin-top:0.1%;">{{dms.name}}</h1>
     <div class="users" style="float:right;">
         <h4 style="font-size:14px;background-color: #0c0f14!important; margin-top:10%;">Members: {{dms.list_of_people.count}}</h4>
         {% for user in dms.list_of_people.all%}
-            <h4 class="usertext">{{user.username}}</h4>
+            <h4 class="usertext" id="{{user.username}}">{{user.profile.online}} {{user.username}}</h4>
         {% endfor %}
     </div>
     <div class="dms" style="float:left;">
@@ -22,38 +103,20 @@
     </div>
     <div class="messages">
         <div class="message">
-            <textarea style="width:100%;height:85vh;" id="messages">{{message}}</textarea>      
+            <textarea style="" id="messages">{{message}}</textarea>      
         </div>
     </div>
-    <script>
-        $(document).ready(function(){
-        setInterval(function(){
-            $.ajax({
-                type:'GET',
-                url : "/ajax/{{dms.id}}",
-                success: function(response){
-                    console.log(response.response);
-                    document.getElementById("messages").value = response.response; 
-                    var $textarea = $('#messages');
-                    $textarea.scrollTop($textarea[0].scrollHeight);     
-                },
-                error: function(response)
-                {
-                    console.log("b");
-                }
-            });
-        },100);
-    });</script>
     
-    <div class="input">
-        <form method="post">
+    
+    <div class="input" >
+        <form method="post" style="display:flex; flex-direction:row; align-items:center;">
             {% csrf_token %}
             <div class="mb-3">
-                <textarea class="form-control" id="text" name="text" rows="2" placeholder="Message {{dms.name}}" style="border-radius: 15px; margin-top:0.5%;color:white"></textarea>
+                <textarea class="form-control" id="text" name="text" rows="2" placeholder="Message {{dms.name}}" style="border-radius: 2px; margin-top:0.5%;color:white; width:85vw;margin-right:2px;"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>   
+            <button type="submit" class="btn btn-primary" style="margin-left:2px;">Submit</button>   
         </form>
     </div>
     
 </div>
-{% endblock content%}
+{% endblock content%} {% endcomment %}

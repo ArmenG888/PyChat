@@ -12,10 +12,21 @@
   }
 * {   
     color:white;
-    background-color: #2B2D31;
+    background-color: #313338;
     font-family:"gg sans", "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-
+.from_user{
+    font-size:16px;
+    color:#f2f3f5;
+}
+.message{
+    font-size:16px;
+    color:#dbdee1;
+}
+.date{
+    font-size:12px;
+    color:#949ba4;
+}
 .login{
     margin-top: 10%;
     display: flex;

@@ -19,23 +19,21 @@ def ajax(request, pk):
     request.user.profile.save()
     dm_x = dm.objects.get(id=pk)
     messages = message.objects.all().filter(chat=dm_x)
-    messages_x = ""
+    messages_x = {}
     for i in messages:
-        messages_x += i.from_user.username + ": " + i.text + "\n"
-    
+        
+        messages_x[i.id] = [i.from_user.username, i.text, i.time.strftime("%m/%d/%Y") + " at " + i.time.strftime("%I:%M %p")]
 
     online = {}
     for i in dm_x.list_of_people.all():
         online[i.username] = i.profile.online()
-    return JsonResponse({"response":messages_x, 'online':online})
+    return JsonResponse({'online':online, 'messages':messages_x})
 
 def dm_detail(request,pk):
     
     dm_x = dm.objects.get(id=pk)
     messages = message.objects.all().filter(chat=dm_x)
-    messages_x = ""
-    for i in messages:
-        messages_x += i.from_user.username + ": " + i.text + "\n"
+    
     if request.method == 'POST':
         form = MessageForm(request.POST)
         if form.is_valid():
@@ -44,5 +42,5 @@ def dm_detail(request,pk):
     else:
         form = MessageForm()
     
-    return render(request, 'message/dm.html', {'message':messages_x, 'form':form,'dms':dm.objects.get(id=pk), 'dm':dms(request.user), 'messages':messages})    
+    return render(request, 'message/dm.html', {'form':form,'dms':dm.objects.get(id=pk), 'dm':dms(request.user), 'messages':messages})    
     

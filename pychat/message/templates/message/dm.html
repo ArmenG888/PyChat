@@ -10,12 +10,12 @@
         {% endfor %}    
     </div>
 </div>
-<div style="display:flex; flex-direction:column;float:left;width:75vw;height:96.8vh;background-color:#313338;overflow:scroll;">
+<div style="display:flex; flex-direction:column;float:left;width:75vw;height:96.8vh;background-color:#313338!important;overflow:scroll;" id="messages">
     {% comment %} <textarea style="background-color:#313338; outline:none; resize:none; border:none; color:white; height:95%;margin-left:1%;" readonly spellcheck="false" id="messages">{{message}}</textarea> {% endcomment %} 
         {% for message in messages %}
-            <div style="">
-                <span style="background-color:#313338;font-size:16px;#f2f3f5">{{message.from_user}}  <span style="background-color:#313338;font-size:12px;color:#949ba4;">{{message.time|date:'d/m/Y' }} at {{message.time|date:'g:i A'}}</span> </span>
-                <span style="background-color:#313338;font-size:16px;#dbdee1">{{message.text}}</span>
+            <div style="" id="{{message.id}}">
+                <span class="from_user">{{message.from_user}}  <span class="date">{{message.time|date:'d/m/Y' }} at {{message.time|date:'g:i A'}}</span> </span>
+                <span class="message">{{message.text}}</span>
             </div>
         {% endfor %}
     <form method="post" style="display:flex; flex-direction:row; align-items:center;">
@@ -45,8 +45,29 @@
             type:'GET',
             url : "/ajax/{{dms.id}}",
             success: function(response){
-                document.getElementById("messages").value = response.response; 
-                var $textarea = $('#messages');
+
+                
+                //var $textarea = $('#messages');
+                for (const [key,value] of Object.entries(response.messages)){
+                    var element =  document.getElementById(key);
+                    if (element == null){
+                        g = document.createElement('div');
+                        g.setAttribute("id", key);
+                        document.getElementById("messages").appendChild(g);
+                        var dateSpan = document.createElement('span')
+                        g.appendChild(dateSpan);
+                        dateSpan.innerHTML = value[0];
+                        var dateSpan1 = document.createElement('span')
+                        g.appendChild(dateSpan1);
+                        dateSpan1.innerHTML =  " " + value[2];
+                        var dateSpan2 = document.createElement('span')
+                        g.appendChild(dateSpan2);
+                        dateSpan2.innerHTML = " " + value[1];
+                        dateSpan.classList.add("from_user");
+                        dateSpan1.classList.add("date");
+                        dateSpan2.classList.add("message");
+                    }
+                }
                 for (const [key, value] of Object.entries(response.online)) { 
                     $("#"+key).html(value + key);
                 }

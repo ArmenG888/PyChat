@@ -13,4 +13,4 @@ class message(models.Model):
     from_user = models.ForeignKey(User, on_delete=models.CASCADE)
     chat = models.ForeignKey(dm, on_delete=models.CASCADE)
     time = models.DateTimeField(default=timezone.now)
-
+    reply = models.ForeignKey("message.message", blank=True,null=True,default="", on_delete=models.CASCADE)

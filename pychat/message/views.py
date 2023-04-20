@@ -37,7 +37,17 @@ def dm_detail(request,pk):
     if request.method == 'POST':
         form = MessageForm(request.POST)
         if form.is_valid():
-            message.objects.create(chat=dm_x, from_user=request.user, text=form.cleaned_data['text'])     
+            txt = form.cleaned_data['text']
+            if txt.find("``") != -1:
+                math_equation = txt[txt.find("``"):]
+                math_equation = math_equation.replace("``", "$$")
+                math_equation = math_equation.replace("/", "\over")
+                math_equation = math_equation.replace("sqrt", "\sqrt")
+                math_equation = math_equation.replace("(", "{")
+                math_equation = math_equation.replace(")", "}")
+                txt=math_equation
+                print(txt)
+            message.objects.create(chat=dm_x, from_user=request.user, text=txt)     
             return redirect('dm', pk)
     else:
         form = MessageForm()

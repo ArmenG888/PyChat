@@ -3,9 +3,9 @@ from .forms import UserRegisterForm
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
+        print(form.errors)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
             return redirect('login')
     else:
         form = UserRegisterForm()

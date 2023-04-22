@@ -11,13 +11,9 @@
     <title>PyChat Login</title>
 </head>
 <body>
-    {% if form.errors %}
-                <div class="alert alert-danger" role="alert">
-                  Your username and password didn't match. Please try again.
-                </div>
-      {% endif %}
     <div class="login">
         <h1 style="margin-left:25%;margin-right:25%;font-weight: bold;">PyChat</h1>
+        <p>{{form.errors}}</p>
         {% if messages %}
           {% for message in messages %}
             <div class="alert alert-{{ message.tags }}">
@@ -29,15 +25,23 @@
             {% csrf_token %}
             <div class="mb-3 newlogininputdiv emailmargin">
               <label for="username" class="form-label">Username</label>
-              <input style="color:white;" type="username" class="form-control rounded" id="username" name="username" aria-describedby="emailHelp" placeholder="name@example.com">             
+              <input  type="username" class="form-control rounded" id="username" name="username" aria-describedby="emailHelp" placeholder="username">             
             </div>
             <div class="mb-3 newlogininputdiv">
               <label for="password" class="form-label">Password</label>
-              <input style="color:white;" type="password" class="form-control rounded " id="password" name="password" placeholder="min 8 characters">
+              <input type="password" class="form-control rounded " id="password1" name="password1" placeholder="min 8 characters" style="color:black!important;">
             </div>
-            
-            <button type="submit" class="btn btn-primary newlogininputdiv">Login</button>
-        </form>
+            <div class="mb-3 newlogininputdiv">
+              <label for="password" class="form-label">Confirm Password</label>
+              <input  type="password" class="form-control rounded " id="password2" name="password2" placeholder="min 8 characters" style="color:black!important;">
+            </div>
+            <button type="submit" class="btn btn-primary newlogininputdiv">Register</button>
+          </form>
+          <div class="pt-3">
+            <small class="text-muted">
+                Already have an account? <a class="ml-2" style="text-decoration:none;"href="{% url 'login' %}">Login In here</a>
+            </small>
+        </div>
     </div>
 </body>
 </html>

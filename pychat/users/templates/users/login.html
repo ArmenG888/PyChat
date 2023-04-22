@@ -29,7 +29,7 @@
             {% csrf_token %}
             <div class="mb-3 newlogininputdiv emailmargin">
               <label for="username" class="form-label">Username</label>
-              <input style="color:white;" type="username" class="form-control rounded" id="username" name="username" aria-describedby="emailHelp" placeholder="name@example.com">             
+              <input style="color:white;" type="username" class="form-control rounded" id="username" name="username" aria-describedby="emailHelp" placeholder="name">             
             </div>
             <div class="mb-3 newlogininputdiv">
               <label for="password" class="form-label">Password</label>
@@ -38,9 +38,9 @@
             
             <button type="submit" class="btn btn-primary newlogininputdiv">Login</button>
           </form>
-          <div class="border-top pt-3">
+          <div class="pt-3">
             <small class="text-muted">
-                Need An Account? <a class="ml-2" style="text-decoration:none;"href="#">Sign Up Now</a>
+                Need An Account? <a class="ml-2" style="text-decoration:none;"href="{% url 'register' %}">Sign Up Now</a>
             </small>
         </div>
     </div>

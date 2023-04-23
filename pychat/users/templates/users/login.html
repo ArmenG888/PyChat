@@ -11,29 +11,19 @@
     <title>PyChat Login</title>
 </head>
 <body>
-    {% if form.errors %}
-                <div class="alert alert-danger" role="alert">
-                  Your username and password didn't match. Please try again.
-                </div>
-      {% endif %}
+    
     <div class="login">
         <h1 style="margin-left:25%;margin-right:25%;font-weight: bold;">PyChat</h1>
-        {% if messages %}
-          {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
-              {{ message }}
-            </div>
-          {% endfor %}
-        {% endif %}
+        <p>{{form.errors}}</p>
         <form method="POST">   
             {% csrf_token %}
             <div class="mb-3 newlogininputdiv emailmargin">
               <label for="username" class="form-label">Username</label>
-              <input style="color:white;" type="username" class="form-control rounded" id="username" name="username" aria-describedby="emailHelp" placeholder="name">             
+              <input style="color:black;" type="username" class="form-control rounded" id="username" name="username" aria-describedby="emailHelp" placeholder="name">             
             </div>
             <div class="mb-3 newlogininputdiv">
               <label for="password" class="form-label">Password</label>
-              <input style="color:white;" type="password" class="form-control rounded " id="password" name="password" placeholder="min 8 characters">
+              <input style="color:black;" type="password" class="form-control rounded " id="password" name="password" placeholder="min 8 characters">
             </div>
             
             <button type="submit" class="btn btn-primary newlogininputdiv">Login</button>

@@ -95,6 +95,12 @@
       var currentFocus;
       /*execute a function when someone writes in the text field:*/
       inp.addEventListener("input", function(e) {
+          if(this.value == "``")
+          {
+            this.value = "````"
+            this.setSelectionRange(this.value.length/2, this.value.length/2);
+          }
+          
           var a, b, i, val = this.value;
           /*close any already open lists of autocompleted values*/
           closeAllLists();

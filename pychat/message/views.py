@@ -5,7 +5,7 @@ from .models import dm, message
 from .forms import MessageForm
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-
+import random
 
 
 def dms(user):
@@ -54,6 +54,13 @@ def dm_detail(request,pk):
                 math_equation = math_equation.replace(")", "}")
                 txt=math_equation
                 print(txt)
+            elif txt.find("/random_number") != -1:
+                random_number = txt.replace("/random_number(","")
+                random_number = random_number.replace(")","")
+                random_numbers = random_number.split(",")
+                random_number = random.randint(int(random_numbers[0]),int(random_numbers[1]))
+                txt += " --- " + str(random_number)
+
             message.objects.create(chat=dm_x, from_user=request.user, text=txt)     
             return redirect('dm', pk)
     else:

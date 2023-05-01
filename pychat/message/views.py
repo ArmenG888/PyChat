@@ -55,9 +55,8 @@ def dm_detail(request,pk):
                 txt=math_equation
                 print(txt)
             elif txt.find("/random_number") != -1:
-                random_number = txt.replace("/random_number(","")
-                random_number = random_number.replace(")","")
-                random_numbers = random_number.split(",")
+                random_number = txt.replace("/random_number","")
+                random_numbers = random_number.split("(")[1].replace(")","").split(",")
                 random_number = random.randint(int(random_numbers[0]),int(random_numbers[1]))
                 txt += " --- " + str(random_number)
 

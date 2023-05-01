@@ -4,14 +4,19 @@ from django.core import serializers
 from .models import dm, message
 from .forms import MessageForm
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
+import random
+
+
 def dms(user):
     dms = []
     for i in dm.objects.all():
         if user in i.list_of_people.all():
             dms.append(i)
     return dms
-def home(request):
 
+@login_required(login_url='/login/')
+def home(request):
     return render(request, 'message/home.html', {'dms':dms(request.user)})    
 
 def ajax(request, pk):
@@ -29,6 +34,7 @@ def ajax(request, pk):
         online[i.username] = i.profile.online()
     return JsonResponse({'online':online, 'messages':messages_x})
 
+@login_required(login_url='/login/')
 def dm_detail(request,pk):
     
     dm_x = dm.objects.get(id=pk)
@@ -43,10 +49,17 @@ def dm_detail(request,pk):
                 math_equation = math_equation.replace("``", "$$")
                 math_equation = math_equation.replace("/", "\over")
                 math_equation = math_equation.replace("sqrt", "\sqrt")
+                math_equation = math_equation.replace("tan", "\tan")
                 math_equation = math_equation.replace("(", "{")
                 math_equation = math_equation.replace(")", "}")
                 txt=math_equation
                 print(txt)
+            elif txt.find("/random_number") != -1:
+                random_number = txt.replace("/random_number","")
+                random_numbers = random_number.split("(")[1].replace(")","").split(",")
+                random_number = random.randint(int(random_numbers[0]),int(random_numbers[1]))
+                txt += " --- " + str(random_number)
+
             message.objects.create(chat=dm_x, from_user=request.user, text=txt)     
             return redirect('dm', pk)
     else:

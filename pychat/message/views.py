@@ -59,7 +59,8 @@ def dm_detail(request,pk):
                 random_numbers = random_number.split("(")[1].replace(")","").split(",")
                 random_number = random.randint(int(random_numbers[0]),int(random_numbers[1]))
                 txt += " --- " + str(random_number)
-
+            elif txt.find("/yes_no()") != -1:
+                txt += " --- yes" if random.randint(1,2) == 2 else " --- no"
             message.objects.create(chat=dm_x, from_user=request.user, text=txt)     
             return redirect('dm', pk)
     else:

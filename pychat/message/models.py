@@ -5,6 +5,7 @@ from django.utils import timezone
 class dm(models.Model):
     name = models.CharField(max_length=50, default="")
     list_of_people = models.ManyToManyField(User)
+    gpt = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

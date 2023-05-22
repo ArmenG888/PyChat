@@ -6,7 +6,10 @@ from .forms import MessageForm
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 import random
-
+import openai
+from django.contrib.auth.models import User
+  
+openai.api_key = "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"
 
 def dms(user):
     dms = []
@@ -43,25 +46,38 @@ def dm_detail(request,pk):
     if request.method == 'POST':
         form = MessageForm(request.POST)
         if form.is_valid():
-            txt = form.cleaned_data['text']
-            if txt.find("``") != -1:
-                math_equation = txt[txt.find("``"):]
-                math_equation = math_equation.replace("``", "$$")
-                math_equation = math_equation.replace("/", "\over")
-                math_equation = math_equation.replace("sqrt", "\sqrt")
-                math_equation = math_equation.replace("tan", "\tan")
-                math_equation = math_equation.replace("(", "{")
-                math_equation = math_equation.replace(")", "}")
-                txt=math_equation
-                print(txt)
-            elif txt.find("/random_number") != -1:
-                random_number = txt.replace("/random_number","")
-                random_numbers = random_number.split("(")[1].replace(")","").split(",")
-                random_number = random.randint(int(random_numbers[0]),int(random_numbers[1]))
-                txt += " --- " + str(random_number)
-            elif txt.find("/yes_no()") != -1:
-                txt += " --- yes" if random.randint(1,2) == 2 else " --- no"
-            message.objects.create(chat=dm_x, from_user=request.user, text=txt)     
+            if dm_x.gpt != True:
+                txt = form.cleaned_data['text']
+                if txt.find("``") != -1:
+                    math_equation = txt[txt.find("``"):]
+                    math_equation = math_equation.replace("``", "$$")
+                    math_equation = math_equation.replace("/", "\over")
+                    math_equation = math_equation.replace("sqrt", "\sqrt")
+                    math_equation = math_equation.replace("tan", "\tan")
+                    math_equation = math_equation.replace("(", "{")
+                    math_equation = math_equation.replace(")", "}")
+                    txt=math_equation
+                    print(txt)
+                elif txt.find("/random_number") != -1:
+                    random_number = txt.replace("/random_number","")
+                    random_numbers = random_number.split("(")[1].replace(")","").split(",")
+                    random_number = random.randint(int(random_numbers[0]),int(random_numbers[1]))
+                    txt += " --- " + str(random_number)
+                elif txt.find("/yes_no()") != -1:
+                    txt += " --- yes" if random.randint(1,2) == 2 else " --- no"
+                message.objects.create(chat=dm_x, from_user=request.user, text=txt)     
+            else:
+                txt = form.cleaned_data['text']
+                messages = [{"role": "user", "content": txt}]
+
+                chat = openai.ChatCompletion.create(
+                    model="gpt-3.5-turbo", messages=messages
+                )
+                response = chat.choices[0].message.content
+                usr = User.objects.get(username="gpt")
+                message.objects.create(chat=dm_x, from_user=request.user, text=txt) 
+                message.objects.create(chat=dm_x, from_user=usr, text=response)    
+            
             return redirect('dm', pk)
     else:
         form = MessageForm()

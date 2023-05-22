@@ -11,7 +11,7 @@
         {% endfor %}    
     </div>
 </div>
-<div style="display:flex; flex-direction:column;float:left;width:75vw;height:96.8vh;background-color:#313338!important;overflow:scroll;" id="messages">
+<div style="display:flex; flex-direction:column;float:left;width:75vw;height:93.8vh;background-color:#313338!important;overflow:scroll;" id="messages">
     {% comment %} <textarea style="background-color:#313338; outline:none; resize:none; border:none; color:white; height:95%;margin-left:1%;" readonly spellcheck="false" id="messages">{{message}}</textarea> {% endcomment %} 
         {% for message in messages %}
             <div style="" id="{{message.id}}">
@@ -74,6 +74,8 @@
                         dateSpan.classList.add("from_user");
                         dateSpan1.classList.add("date");
                         dateSpan2.classList.add("message");
+                        var messageBody = document.querySelector('#messages');
+                        messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
                     }
                 }
                 for (const [key, value] of Object.entries(response.online)) { 

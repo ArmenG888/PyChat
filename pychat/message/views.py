@@ -9,7 +9,7 @@ import random
 import openai
 from django.contrib.auth.models import User
   
-openai.api_key = "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"
+openai.api_key = ""
 
 def dms(user):
     dms = []
@@ -36,6 +36,9 @@ def ajax(request, pk):
     for i in dm_x.list_of_people.all():
         online[i.username] = i.profile.online()
     return JsonResponse({'online':online, 'messages':messages_x})
+
+
+messages_gpt = []
 
 @login_required(login_url='/login/')
 def dm_detail(request,pk):
@@ -68,10 +71,10 @@ def dm_detail(request,pk):
                 message.objects.create(chat=dm_x, from_user=request.user, text=txt)     
             else:
                 txt = form.cleaned_data['text']
-                messages = [{"role": "user", "content": txt}]
+                messages_gpt.append({"role": "user", "content": txt})
 
                 chat = openai.ChatCompletion.create(
-                    model="gpt-3.5-turbo", messages=messages
+                    model="gpt-3.5-turbo", messages=messages_gpt
                 )
                 response = chat.choices[0].message.content
                 usr = User.objects.get(username="gpt")

@@ -59,6 +59,8 @@ def dm_detail(request,pk):
                     math_equation = math_equation.replace("tan", "\tan")
                     math_equation = math_equation.replace("(", "{")
                     math_equation = math_equation.replace(")", "}")
+                    math_equation = math_equation.replace("+-", "\pm")
+                    math_equation = math_equation.replace("!=", "\\ne")
                     txt=math_equation
                     print(txt)
                 elif txt.find("/random_number") != -1:

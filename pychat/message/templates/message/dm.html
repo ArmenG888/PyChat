@@ -1,7 +1,8 @@
 {% include "message/base.html" %}
 
 <div style="float:left;width:3.5vw;height:100vh; background-color:#1E1F22!important">
-    {% for i in servers %}
+    {% for server in servers %}
+        <img src="{{server.icon.url}}" style="border-radius:50%; margin-top:10px; overflow:hidden; height:70px; width:70px">
     {% endfor %}
 </div>
 

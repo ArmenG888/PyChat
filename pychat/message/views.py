@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse, HttpResponse
 from django.core import serializers
-from .models import dm, message
+from .models import dm, message, server
 from .forms import MessageForm
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
@@ -87,5 +87,5 @@ def dm_detail(request,pk):
     else:
         form = MessageForm()
     
-    return render(request, 'message/dm.html', {'form':form,'dms':dm.objects.get(id=pk), 'dm':dms(request.user), 'messages':messages})    
+    return render(request, 'message/dm.html', {'form':form,'dms':dm.objects.get(id=pk), 'dm':dms(request.user), 'messages':messages, 'servers':server.objects.all()})    
     

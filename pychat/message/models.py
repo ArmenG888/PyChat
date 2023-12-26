@@ -15,3 +15,10 @@ class message(models.Model):
     chat = models.ForeignKey(dm, on_delete=models.CASCADE)
     time = models.DateTimeField(default=timezone.now)
     reply = models.ForeignKey("message.message", blank=True,null=True,default="", on_delete=models.CASCADE)
+
+class server(models.Model):
+    name = models.CharField(max_length=100,default="")
+    icon = models.ImageField(upload_to="server_images/", default="")
+    channels = models.ManyToManyField(dm)
+    people = models.ManyToManyField(User)
+
